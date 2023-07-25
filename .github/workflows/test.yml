@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        os:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+        python-version:
+        - '3.9'
+        - '3.11'
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        cache: pip
+        cache-dependency-path: poetry.lock
+        python-version: ${{ matrix.python-version }}
+    - uses: abatilo/actions-poetry@v2
+    - run: poetry install --no-interaction
+    - name: Test
+      if: ${{ runner.os == 'Windows' }}
+      run: poetry run task test
+    - name: Test & publish code coverage
+      if: ${{ runner.os != 'Windows' && env.CC_TEST_REPORTER_ID != '' }}
+      uses: paambaati/codeclimate-action@v4.0.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: poetry run task test:ci
+        coverageLocations: ${{github.workspace}}/cov.xml:coverage.py
+        debug: true
