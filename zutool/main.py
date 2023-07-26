@@ -16,8 +16,16 @@ if TYPE_CHECKING:
     from .models.get_weather_status import _WeatherStatusByTime
 
 
-class ZutoolFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
+class _ZutoolFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
     pass
+
+
+def __get_formatter_class(prog: str, max_help_position: int = 50) -> _ZutoolFormatter:
+    return _ZutoolFormatter(
+        prog,
+        width=get_terminal_size(fallback=(120, 50)).columns,
+        max_help_position=max_help_position,
+    )
 
 
 def func_pain_status(ns: argparse.Namespace) -> None:
@@ -119,13 +127,7 @@ def func_weather_status(ns: argparse.Namespace) -> None:
 def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="zutool",
-        formatter_class=(
-            lambda prog: ZutoolFormatter(
-                prog,
-                width=get_terminal_size(fallback=(120, 50)).columns,
-                max_help_position=50,
-            )
-        ),
+        formatter_class=lambda prog: __get_formatter_class(prog, 30),
         description="Get info of zutool <https://zutool.jp/>.",
     )
 
@@ -139,7 +141,12 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
 
     subparsers = parser.add_subparsers()
 
-    pain_status_parser = subparsers.add_parser("pain_status", aliases=["ps"], help="get pain status by prefecture")
+    pain_status_parser = subparsers.add_parser(
+        "pain_status",
+        aliases=["ps"],
+        formatter_class=lambda prog: __get_formatter_class(prog, 20),
+        help="get pain status by prefecture",
+    )
     pain_status_parser.add_argument(
         "area_code",
         type=str,
@@ -147,15 +154,19 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     )
     pain_status_parser.add_argument(
         "-s",
-        "--set-weather-point",
         dest="set_weather_point",
-        metavar="Weather Point",
+        metavar="CODE",
         type=str,
         help="set weather point code as default (ex. `13113`)",
     )
     pain_status_parser.set_defaults(func=func_pain_status)
 
-    weather_point_parser = subparsers.add_parser("weather_point", aliases=["wp"], help="search weather point")
+    weather_point_parser = subparsers.add_parser(
+        "weather_point",
+        aliases=["wp"],
+        formatter_class=lambda prog: __get_formatter_class(prog),
+        help="search weather point",
+    )
     weather_point_parser.add_argument(
         "keyword",
         type=str,
@@ -169,7 +180,12 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     )
     weather_point_parser.set_defaults(func=func_weather_point)
 
-    weather_status_parser = subparsers.add_parser("weather_status", aliases=["ws"], help="get pain status by city")
+    weather_status_parser = subparsers.add_parser(
+        "weather_status",
+        aliases=["ws"],
+        formatter_class=lambda prog: __get_formatter_class(prog),
+        help="get pain status by city",
+    )
     weather_status_parser.add_argument(
         "city_code",
         type=str,

@@ -65,29 +65,27 @@ Get info of zutool <https://zutool.jp/>.
 
 positional arguments:
   {pain_status,ps,weather_point,wp,weather_status,ws}
-    pain_status (ps)                              get pain status by prefecture
-    weather_point (wp)                            search weather point
-    weather_status (ws)                           get pain status by city
+    pain_status (ps)          get pain status by prefecture
+    weather_point (wp)        search weather point
+    weather_status (ws)       get pain status by city
 
 optional arguments:
-  -h, --help                                      show this help message and exit
-  -j, --json                                      print as json (default: False)
+  -h, --help                  show this help message and exit
+  -j, --json                  print as json (default: False)
 ```
 
 ### `pain_status (ps)`
 
 ```shellsession
 $ zutool ps -h
-usage: zutool pain_status [-h] [-s Weather Point] area_code
+usage: zutool pain_status [-h] [-s CODE] area_code
 
 positional arguments:
-  area_code             see: <https://nlftp.mlit.go.jp/ksj/gml/codelist/PrefCd
-                        .html> (ex. `13`)
+  area_code   see: <https://nlftp.mlit.go.jp/ksj/gml/codelist/PrefCd.html> (ex. `13`)
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -s Weather Point, --set-weather-point Weather Point
-                        set weather point code as default (ex. `13113`)
+  -h, --help  show this help message and exit
+  -s CODE     set weather point code as default (ex. `13113`) (default: None)
 ```
 
 ```shellsession
@@ -115,7 +113,7 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-  -k, --kata  with kata column in non-json output
+  -k, --kata  with kata column in non-json output (default: False)
 ```
 
 ```shellsession
@@ -141,30 +139,29 @@ positional arguments:
 
 optional arguments:
   -h, --help    show this help message and exit
-  -n N [N ...]  specify day number to show
+  -n N [N ...]  specify day number to show (default: [0])
 ```
 
 ```shellsession
 $ zutool ws 13113
                                            東京都渋谷区の気圧予報
-                                          2023-07-25 19:00:00+09:00
+                                          2023-07-26 03:00:00+09:00
 ┏━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
 ┃ 0      ┃ 1      ┃ 2      ┃ 3      ┃ 4      ┃ 5      ┃ 6      ┃ 7      ┃ 8      ┃ 9      ┃ 10     ┃ 11     ┃
 ┡━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
-│ ☼      │ ☼      │ ☼      │ ☼      │ ☁      │ ☁      │ ☁      │ ☁      │ ☁      │ ☼      │ ☼      │ ☼      │
-│ 25.9℃  │ 25.1℃  │ 24.7℃  │ 24.9℃  │ 24.7℃  │ 24.7℃  │ 25.7℃  │ 28.0℃  │ 29.3℃  │ 31.2℃  │ 33.1℃  │ 33.8℃  │
+│ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │
+│ 27.8℃  │ 28.2℃  │ 26.3℃  │ 26.2℃  │ 26.2℃  │ 26.2℃  │ 26.5℃  │ 27.3℃  │ 28.6℃  │ 30.1℃  │ 31.7℃  │ 33.2℃  │
 │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │
-│ 1015.7 │ 1015.5 │ 1015.4 │ 1015.2 │ 1015.5 │ 1015.7 │ 1015.8 │ 1015.9 │ 1015.7 │ 1015.6 │ 1015.4 │ 1015.1 │
+│ 1015.6 │ 1015.5 │ 1015.7 │ 1015.5 │ 1015.4 │ 1015.6 │ 1015.8 │ 1016.0 │ 1016.1 │ 1016.3 │ 1016.2 │ 1015.9 │
 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │
 └────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘
 ┏━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
 ┃ 12     ┃ 13     ┃ 14     ┃ 15     ┃ 16     ┃ 17     ┃ 18     ┃ 19     ┃ 20     ┃ 21     ┃ 22     ┃ 23     ┃
 ┡━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
 │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │ ☼      │
-│ 34.7℃  │ 35.9℃  │ 35.7℃  │ 35.1℃  │ 34.7℃  │ 33.1℃  │ 31.2℃  │ 30.3℃  │ 29.6℃  │ 28.3℃  │ 27.6℃  │ 27.2℃  │
+│ 34.5℃  │ 35.3℃  │ 35.7℃  │ 35.2℃  │ 33.9℃  │ 32.2℃  │ 30.4℃  │ 28.6℃  │ 27.2℃  │ 26.5℃  │ 26.3℃  │ 26.3℃  │
 │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │ ↗      │
-│ 1014.8 │ 1014.3 │ 1014.2 │ 1014.2 │ 1014.4 │ 1014.2 │ 1014.5 │ 1014.5 │ 1015.3 │ 1016.0 │ 1015.8 │ 1015.8 │
+│ 1015.5 │ 1014.9 │ 1014.3 │ 1013.9 │ 1013.8 │ 1013.8 │ 1014.2 │ 1014.7 │ 1015.4 │ 1016.0 │ 1015.8 │ 1015.9 │
 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │
 └────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘
-...
 ```
