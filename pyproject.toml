@@ -80,6 +80,7 @@ warn_required_dynamic_aliases = true
 
 [tool.taskipy.tasks]
 test = "pytest --cov=zutool --cov-report=term"
+"test:html" = "task test --cov-report=html && open htmlcov/index.html"
 "test:ci" = "task test --cov-report=xml:cov.xml"
 lint = "pre-commit run -a"
 profile = "python -m cProfile"
