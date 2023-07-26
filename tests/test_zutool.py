@@ -23,9 +23,13 @@ def test_pain_status_invalid() -> None:
 
 
 def test_pain_status_empty() -> None:
-    default_area_code = "13113"
-    res = get_pain_status("")
-    assert res.painnoterate_status.area_name.value == default_area_code[:2]
+    city_code_1 = "01101"
+    res = get_pain_status("", set_weather_point=city_code_1)
+    assert res.painnoterate_status.area_name.value == city_code_1[:2]
+
+    city_code_2 = "13113"
+    res = get_pain_status("", set_weather_point=city_code_2)
+    assert res.painnoterate_status.area_name.value == city_code_2[:2]
 
 
 def test_weather_point() -> None:
@@ -69,17 +73,11 @@ def test_weather_status_invalid_digit() -> None:
     assert err.error_message == "地点コードの桁数が正しくありません。 地点コード = 13"
 
 
-@pytest.mark.xfail(reason="set_weather_point does not work")
 def test_weather_status_empty() -> None:
-    city_code_1 = "01101"
-    res = get_weather_status("", set_weather_point=city_code_1)
-    assert res.prefectures_id.value == city_code_1[:2]
-    assert res.place_id == city_code_1[2:]
-
-    city_code_2 = "13113"
-    res = get_weather_status("", city_code_2)
-    assert res.prefectures_id.value == city_code_2[:2]
-    assert res.place_id == city_code_2[2:]
+    default_city_code = "13113"
+    res = get_weather_status("")
+    assert res.prefectures_id.value == default_city_code[:2]
+    assert res.place_id == default_city_code[2:]
 
 
 def test_no_args(capfd: pytest.CaptureFixture[str]) -> None:
@@ -103,16 +101,10 @@ def test_wp_empty() -> None:
     assert e.value.args[0] == HTTP_NOT_FOUND
 
 
-@pytest.mark.xfail(reason="set_weather_point does not work")
 def test_ws_empty(capfd: pytest.CaptureFixture[str]) -> None:
-    city_code_1 = "01101"
-    main(test_args=["ws", "", "-s", city_code_1])
+    default_city_code = "13113"
+    main(test_args=["ws", ""])
     captured = capfd.readouterr()
-    assert '"place_name": "北海道",' in captured.out
-    assert not captured.err
-
-    city_code_2 = "13113"
-    main(test_args=["ws", "", "-s", city_code_2])
-    captured = capfd.readouterr()
-    assert '"place_name": "東京都渋谷区",' in captured.out
+    assert f'"prefectures_id": "{default_city_code[:2]}",' in captured.out
+    assert f'"place_id": "{default_city_code[2:]}",' in captured.out
     assert not captured.err

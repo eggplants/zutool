@@ -107,5 +107,5 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -s Weather Point, --set-weather-point Weather Point
-                        set weather point code as default.(ex.`13113`)
+                        set weather point code as default (ex.`13113`)
 ```
