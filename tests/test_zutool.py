@@ -83,28 +83,52 @@ def test_weather_status_empty() -> None:
 def test_no_args(capfd: pytest.CaptureFixture[str]) -> None:
     main(test_args=[])
     captured = capfd.readouterr()
-    assert "usage: zutool [-h] {" in captured.out
+    assert "usage: zutool [-h] [-j] {" in captured.out
     assert not captured.err
 
 
 def test_ps_empty(capfd: pytest.CaptureFixture[str]) -> None:
     default_area_code = "13113"
-    main(test_args=["ps", ""])
+    main(test_args=["-j", "ps", ""])
     captured = capfd.readouterr()
     assert f'"area_name": "{default_area_code[:2]}"' in captured.out
     assert not captured.err
 
 
+def test_ps_rich(capfd: pytest.CaptureFixture[str]) -> None:
+    area_code = "13"
+    main(test_args=["ps", area_code])
+    captured = capfd.readouterr()
+    assert f"今のみんなの体調は? <東京都|{area_code}>" in captured.out
+    assert not captured.err
+
+
 def test_wp_empty() -> None:
     with pytest.raises(ValueError) as e:  # noqa: PT011
-        main(test_args=["wp", ""])
+        main(test_args=["-j", "wp", ""])
     assert e.value.args[0] == HTTP_NOT_FOUND
+
+
+def test_wp_rich(capfd: pytest.CaptureFixture[str]) -> None:
+    keyword = "東京都港区"
+    main(test_args=["wp", keyword])
+    captured = capfd.readouterr()
+    assert f"「{keyword}」の検索結" in captured.out
+    assert not captured.err
 
 
 def test_ws_empty(capfd: pytest.CaptureFixture[str]) -> None:
     default_city_code = "13113"
-    main(test_args=["ws", ""])
+    main(test_args=["-j", "ws", ""])
     captured = capfd.readouterr()
     assert f'"prefectures_id": "{default_city_code[:2]}",' in captured.out
     assert f'"place_id": "{default_city_code[2:]}",' in captured.out
+    assert not captured.err
+
+
+def test_ws_rich(capfd: pytest.CaptureFixture[str]) -> None:
+    city_code = "13113"
+    main(test_args=["ws", city_code])
+    captured = capfd.readouterr()
+    assert "東京都渋谷区の気圧予報" in captured.out
     assert not captured.err

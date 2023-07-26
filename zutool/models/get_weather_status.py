@@ -41,7 +41,7 @@ class GetWeatherStatusResponse(BaseModel):
     date_time: datetime = Field(alias="dateTime")
     yesterday: list[_WeatherStatusByTime]
     today: list[_WeatherStatusByTime]
-    tommorow: list[_WeatherStatusByTime]
+    tomorrow: list[_WeatherStatusByTime] = Field(validation_alias="tommorow")
     dayaftertomorrow: list[_WeatherStatusByTime]
 
     @field_validator("prefectures_id", mode="before")
