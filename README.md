@@ -20,6 +20,10 @@
   <https://github.com/eggplants/zutool/actions/workflows/test.yml/badge.svg>
   )](
   <https://github.com/eggplants/zutool/actions/workflows/test.yml>
+) [![Release](
+  <https://github.com/eggplants/zutool/actions/workflows/release.yml/badge.svg>
+  )](
+  <https://github.com/eggplants/zutool/actions/workflows/release.yml>
 )
 
 [![ghcr latest](
