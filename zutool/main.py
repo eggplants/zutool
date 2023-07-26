@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from datetime import timedelta
 from shutil import get_terminal_size
 from typing import TYPE_CHECKING
@@ -20,7 +21,11 @@ class ZutoolFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescri
 
 
 def func_pain_status(ns: argparse.Namespace) -> None:
-    res_raw = api.get_pain_status(ns.area_code, set_weather_point=ns.set_weather_point)
+    try:
+        res_raw = api.get_pain_status(ns.area_code, set_weather_point=ns.set_weather_point)
+    except ValueError as e:
+        print(f"{type(e).__name__}:", e, file=sys.stderr)
+        sys.exit(1)
     if bool(ns.json):
         print(res_raw.model_dump_json(indent=4))
         return
@@ -47,7 +52,11 @@ def func_pain_status(ns: argparse.Namespace) -> None:
 
 
 def func_weather_point(ns: argparse.Namespace) -> None:
-    res = api.get_weather_point(ns.keyword)
+    try:
+        res = api.get_weather_point(ns.keyword)
+    except ValueError as e:
+        print(f"{type(e).__name__}:", e, file=sys.stderr)
+        sys.exit(1)
     if bool(ns.json):
         print(res.model_dump_json(indent=4))
         return
@@ -92,7 +101,11 @@ def func_weather_status(ns: argparse.Namespace) -> None:
         Console().print(table)
         return prev_pressure
 
-    res_raw = api.get_weather_status(ns.city_code)
+    try:
+        res_raw = api.get_weather_status(ns.city_code)
+    except ValueError as e:
+        print(f"{type(e).__name__}:", e, file=sys.stderr)
+        sys.exit(1)
     if bool(ns.json):
         print(res_raw.model_dump_json(indent=4))
         return

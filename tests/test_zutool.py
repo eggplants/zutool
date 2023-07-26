@@ -103,10 +103,14 @@ def test_ps_rich(capfd: pytest.CaptureFixture[str]) -> None:
     assert not captured.err
 
 
-def test_wp_empty() -> None:
-    with pytest.raises(ValueError) as e:  # noqa: PT011
+def test_wp_empty(capfd: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit) as e:
         main(test_args=["-j", "wp", ""])
-    assert e.value.args[0] == HTTP_NOT_FOUND
+    assert e.value.args[0] == 1
+
+    captured = capfd.readouterr()
+    assert not captured.out
+    assert "Error: (404, " in captured.err
 
 
 def test_wp_rich(capfd: pytest.CaptureFixture[str]) -> None:
