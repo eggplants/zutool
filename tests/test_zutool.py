@@ -6,6 +6,7 @@ from zutool.main import main
 HTTP_NOT_FOUND = 404
 ZUTOOL_API_NOT_FOUND = 4004
 ZUTOOL_API_INVALID_PARAMETER = 4002
+CMD_PARSE_ERROR_CODE = 2
 
 
 def test_pain_status() -> None:
@@ -80,14 +81,14 @@ def test_weather_status_empty() -> None:
     assert res.place_id == default_city_code[2:]
 
 
-def test_no_args(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_no_args(capfd: pytest.CaptureFixture[str]) -> None:
     main(test_args=[])
     captured = capfd.readouterr()
     assert "usage: zutool [-h] [-j] {" in captured.out
     assert not captured.err
 
 
-def test_ps_empty(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_ps_empty(capfd: pytest.CaptureFixture[str]) -> None:
     default_area_code = "13113"
     main(test_args=["-j", "ps", ""])
     captured = capfd.readouterr()
@@ -95,7 +96,7 @@ def test_ps_empty(capfd: pytest.CaptureFixture[str]) -> None:
     assert not captured.err
 
 
-def test_ps_rich(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_ps_rich(capfd: pytest.CaptureFixture[str]) -> None:
     area_code = "13"
     main(test_args=["ps", area_code])
     captured = capfd.readouterr()
@@ -103,9 +104,9 @@ def test_ps_rich(capfd: pytest.CaptureFixture[str]) -> None:
     assert not captured.err
 
 
-def test_wp_empty(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_wp_empty(capfd: pytest.CaptureFixture[str]) -> None:
     with pytest.raises(SystemExit) as e:
-        main(test_args=["-j", "wp", ""])
+        main(test_args=["-j", "wp", "", "-k"])
     assert e.value.args[0] == 1
 
     captured = capfd.readouterr()
@@ -113,7 +114,7 @@ def test_wp_empty(capfd: pytest.CaptureFixture[str]) -> None:
     assert "Error: (404, " in captured.err
 
 
-def test_wp_rich(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_wp_rich(capfd: pytest.CaptureFixture[str]) -> None:
     keyword = "東京都港区"
     main(test_args=["wp", keyword])
     captured = capfd.readouterr()
@@ -121,7 +122,7 @@ def test_wp_rich(capfd: pytest.CaptureFixture[str]) -> None:
     assert not captured.err
 
 
-def test_ws_empty(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_ws_empty(capfd: pytest.CaptureFixture[str]) -> None:
     default_city_code = "13113"
     main(test_args=["-j", "ws", ""])
     captured = capfd.readouterr()
@@ -130,9 +131,19 @@ def test_ws_empty(capfd: pytest.CaptureFixture[str]) -> None:
     assert not captured.err
 
 
-def test_ws_rich(capfd: pytest.CaptureFixture[str]) -> None:
+def test_cli_ws_rich(capfd: pytest.CaptureFixture[str]) -> None:
     city_code = "13113"
     main(test_args=["ws", city_code])
     captured = capfd.readouterr()
     assert "東京都渋谷区の気圧予報" in captured.out
     assert not captured.err
+
+
+def test_cli_ws_invalid_n(capfd: pytest.CaptureFixture[str]) -> None:
+    city_code = "13113"
+    with pytest.raises(SystemExit) as e:
+        main(test_args=["ws", city_code, "-n", "-2"])
+    assert e.value.args[0] == CMD_PARSE_ERROR_CODE
+    captured = capfd.readouterr()
+    assert not captured.out
+    assert "invalid choice: -2" in captured.err

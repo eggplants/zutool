@@ -109,7 +109,7 @@ def func_weather_status(ns: argparse.Namespace) -> None:
     if bool(ns.json):
         print(res_raw.model_dump_json(indent=4))
         return
-    for day_idx, day in enumerate(("yesterday", "today", "tomorrow", "dayaftertomorrow")):
+    for day_idx, day in enumerate([("yesterday", "today", "tomorrow", "dayaftertomorrow")[i + 1] for i in ns.n]):
         res: list[_WeatherStatusByTime] = getattr(res_raw, day)
         title = f"{res_raw.place_name}の気圧予報\n{res_raw.date_time+timedelta(days=day_idx-1)}"
         prev_pressure = __helper(res, 0, 0, title)
@@ -174,6 +174,15 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
         "city_code",
         type=str,
         help="see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)",
+    )
+    weather_status_parser.add_argument(
+        "-n",
+        choices=range(-1, 3),
+        default=[0],
+        type=int,
+        metavar="N",
+        nargs="+",
+        help="specify day number to show",
     )
 
     weather_status_parser.set_defaults(func=func_weather_status)
