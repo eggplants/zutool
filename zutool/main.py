@@ -81,34 +81,35 @@ def func_weather_point(ns: argparse.Namespace) -> None:
     Console().print(table)
 
 
+def __func_weather_status_helper(res: list[_WeatherStatusByTime], n: int, prev_pressure: float, title: str) -> float:
+    table = Table()
+    for i in range(12 * n, 12 * (n + 1)):
+        table.add_column(str(i))
+    weathers, temps, pressures, pressure_levels = [], [], [], []
+    for by_time in res[12 * n : 12 * (n + 1)]:
+        weathers.append({"100": "☼", "200": "☁", "300": "☔", "400": "☃"}[by_time.weather.value])
+        temps.append(f"{by_time.temp}℃")
+        pressure = by_time.pressure
+        pressures.append(
+            f"↗\n{pressure}"
+            if pressure > prev_pressure
+            else f"↘\n{pressure}"
+            if pressure < prev_pressure
+            else f"→\n{pressure}",
+        )
+        pressure_levels.append(by_time.pressure_level.name)
+    table.add_row(*weathers)
+    table.add_row(*temps)
+    table.add_row(*pressures)
+    table.add_row(*pressure_levels)
+
+    if n == 0:
+        table.title = title
+    Console().print(table)
+    return prev_pressure
+
+
 def func_weather_status(ns: argparse.Namespace) -> None:
-    def __helper(res: list[_WeatherStatusByTime], n: int, prev_pressure: float, title: str) -> float:
-        table = Table()
-        for i in range(12 * n, 12 * (n + 1)):
-            table.add_column(str(i))
-        weathers, temps, pressures, pressure_levels = [], [], [], []
-        for by_time in res[12 * n : 12 * (n + 1)]:
-            weathers.append({"100": "☼", "200": "☁", "300": "☔", "400": "☃"}[by_time.weather.value])
-            temps.append(f"{by_time.temp}℃")
-            pressure = by_time.pressure
-            pressures.append(
-                f"↗\n{pressure}"
-                if pressure > prev_pressure
-                else f"↘\n{pressure}"
-                if pressure < prev_pressure
-                else f"→\n{pressure}",
-            )
-            pressure_levels.append(by_time.pressure_level.name)
-        table.add_row(*weathers)
-        table.add_row(*temps)
-        table.add_row(*pressures)
-        table.add_row(*pressure_levels)
-
-        if n == 0:
-            table.title = title
-        Console().print(table)
-        return prev_pressure
-
     try:
         res_raw = api.get_weather_status(ns.city_code)
     except ValueError as e:
@@ -120,8 +121,8 @@ def func_weather_status(ns: argparse.Namespace) -> None:
     for day_idx, day in enumerate([("yesterday", "today", "tomorrow", "dayaftertomorrow")[i + 1] for i in ns.n]):
         res: list[_WeatherStatusByTime] = getattr(res_raw, day)
         title = f"{res_raw.place_name}の気圧予報\n{res_raw.date_time+timedelta(days=day_idx-1)}"
-        prev_pressure = __helper(res, 0, 0, title)
-        __helper(res, 1, prev_pressure, title)
+        prev_pressure = __func_weather_status_helper(res, 0, 0, title)
+        __func_weather_status_helper(res, 1, prev_pressure, title)
 
 
 def parse(test_args: list[str] | None = None) -> argparse.Namespace:
