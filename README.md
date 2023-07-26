@@ -99,11 +99,13 @@ optional arguments:
 
 ```shellsession
 $ zutool ws -h
-usage: zutool weather_status [-h] city_code
+usage: zutool weather_status [-h] [-s Weather Point] city_code
 
 positional arguments:
-  city_code   see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)
+  city_code             see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  -s Weather Point, --set-weather-point Weather Point
+                        set weather point code as default.(ex.`13113`)
 ```

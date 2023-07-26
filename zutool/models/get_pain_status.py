@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field, PositiveFloat, PositiveInt, field_validator
+from pydantic import BaseModel, Field, PositiveFloat, field_validator
 
 from .enum import AreaEnum
 
 
 class _GetPainStatus(BaseModel):
     area_name: AreaEnum
-    time_start: PositiveInt
-    time_end: PositiveInt
+    time_start: int
+    time_end: int
     rate_normal: PositiveFloat = Field(alias="普通", validation_alias="rate_0")
     rate_little: PositiveFloat = Field(alias="少し痛い", validation_alias="rate_1")
     rate_painful: PositiveFloat = Field(alias="痛い", validation_alias="rate_2")

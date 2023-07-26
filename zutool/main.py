@@ -1,26 +1,37 @@
 from __future__ import annotations
 
 import argparse
+from shutil import get_terminal_size
 
 from . import api
 
 
+class ZutoolFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
+    pass
+
+
 def func_pain_status(ns: argparse.Namespace) -> None:
-    print(api.get_pain_status(ns.area_code))
+    print(api.get_pain_status(ns.area_code).model_dump_json(indent=4))
 
 
 def func_weather_point(ns: argparse.Namespace) -> None:
-    print(api.get_weather_point(ns.keyword))
+    print(api.get_weather_point(ns.keyword).model_dump_json(indent=4))
 
 
 def func_weather_status(ns: argparse.Namespace) -> None:
-    print(api.get_weather_status(ns.city_code))
+    print(api.get_weather_status(ns.city_code, set_weather_point=ns.set_weather_point).model_dump_json(indent=4))
 
 
 def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="zutool",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
+        formatter_class=(
+            lambda prog: ZutoolFormatter(
+                prog,
+                width=get_terminal_size(fallback=(120, 50)).columns,
+                max_help_position=50,
+            )
+        ),
         description="Get info of zutool <https://zutool.jp/>.",
     )
 
@@ -50,6 +61,15 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
         type=str,
         help="see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)",
     )
+    weather_status_parser.add_argument(
+        "-s",
+        "--set-weather-point",
+        dest="set_weather_point",
+        metavar="Weather Point",
+        type=str,
+        help="set weather point code as default. (ex. `13113`)",
+    )
+
     weather_status_parser.set_defaults(func=func_weather_status)
 
     if test_args is not None:
@@ -57,8 +77,8 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = parse()
+def main(test_args: list[str] | None = None) -> None:
+    args = parse(test_args=test_args)
     args.func(args)
 
 
