@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from .enum import AreaEnum, PressureLevelEnum, WeatherEnum
 
-JTC = timezone(timedelta(hours=9))
+_JTC = timezone(timedelta(hours=9))
 
 
 class _WeatherStatusByTime(BaseModel):
@@ -54,4 +54,4 @@ class GetWeatherStatusResponse(BaseModel):
 
     @field_validator("date_time", mode="before")
     def validate_date_time(cls, v: str) -> datetime:
-        return datetime.strptime(v, "%Y-%m-%d %H").replace(tzinfo=JTC)
+        return datetime.strptime(v, "%Y-%m-%d %H").replace(tzinfo=_JTC)

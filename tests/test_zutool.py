@@ -1,6 +1,6 @@
 import pytest
 
-from zutool import get_pain_status, get_weather_point, get_weather_status
+from zutool import get_otenki_asp, get_pain_status, get_weather_point, get_weather_status
 from zutool.main import main
 
 HTTP_NOT_FOUND = 404
@@ -74,11 +74,21 @@ def test_weather_status_invalid_digit() -> None:
     assert err.error_message == "地点コードの桁数が正しくありません。 地点コード = 13"
 
 
-def test_weather_status_empty() -> None:
-    default_city_code = "13113"
-    res = get_weather_status("")
-    assert res.prefectures_id.value == default_city_code[:2]
-    assert res.place_id == default_city_code[2:]
+def test_otenki_asp() -> None:
+    city_code = "13101"
+    res = get_otenki_asp(city_code)
+    assert res.status == "OK"
+
+
+def test_otenki_asp_invalid_code() -> None:
+    city_code = "13000"
+    with pytest.raises(ValueError):  # noqa: PT011
+        get_otenki_asp(city_code)
+
+
+def test_otenki_asp_empty() -> None:
+    with pytest.raises(ValueError):  # noqa: PT011
+        get_otenki_asp("")
 
 
 def test_cli_no_args(capfd: pytest.CaptureFixture[str]) -> None:
@@ -147,3 +157,31 @@ def test_cli_ws_invalid_n(capfd: pytest.CaptureFixture[str]) -> None:
     captured = capfd.readouterr()
     assert not captured.out
     assert "invalid choice: -2" in captured.err
+
+
+def test_cli_oa_rich(capfd: pytest.CaptureFixture[str]) -> None:
+    city_code = "13101"
+    main(test_args=["oa", city_code])
+    captured = capfd.readouterr()
+    assert f"<東京|{city_code}>の天気情報" in captured.out
+    assert not captured.err
+
+
+def test_cli_oa_invalid_n(capfd: pytest.CaptureFixture[str]) -> None:
+    city_code = "13101"
+    with pytest.raises(SystemExit) as e:
+        main(test_args=["oa", city_code, "-n", "-2"])
+    assert e.value.args[0] == CMD_PARSE_ERROR_CODE
+    captured = capfd.readouterr()
+    assert not captured.out
+    assert "invalid choice: -2" in captured.err
+
+
+def test_cli_oa_invalid_city_code(capfd: pytest.CaptureFixture[str]) -> None:
+    city_code = "13113"
+    with pytest.raises(SystemExit) as e:
+        main(test_args=["-j", "oa", city_code])
+    assert e.value.args[0] == CMD_PARSE_ERROR_CODE
+    captured = capfd.readouterr()
+    assert not captured.out
+    assert f"invalid choice: '{city_code}'" in captured.err

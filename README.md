@@ -57,21 +57,25 @@ z.get_weather_point(keyword)
 # see: <https://geoshape.ex.nii.ac.jp/city/code/?13113>
 city_code = "13113" # 東京都渋谷区
 z.get_weather_status(city_code)
+
+city_code = "13101" # 東京都千代田区
+z.get_otenki_asp(city_code)
 ```
 
 ## As CLI
 
 ```shellsession
 $ zutool -h
-usage: zutool [-h] [-j] {pain_status,ps,weather_point,wp,weather_status,ws} ...
+usage: zutool [-h] [-j] {pain_status,ps,weather_point,wp,weather_status,ws,otenki_asp,oa} ...
 
 Get info of zutool <https://zutool.jp/>.
 
 positional arguments:
-  {pain_status,ps,weather_point,wp,weather_status,ws}
+  {pain_status,ps,weather_point,wp,weather_status,ws,otenki_asp,oa}
     pain_status (ps)          get pain status by prefecture
     weather_point (wp)        search weather point
     weather_status (ws)       get pain status by city
+    otenki_asp (oa)           get weather infomations
 
 optional arguments:
   -h, --help                  show this help message and exit
@@ -168,4 +172,35 @@ $ zutool ws 13113
 │ 1015.5 │ 1014.9 │ 1014.3 │ 1013.9 │ 1013.8 │ 1013.8 │ 1014.2 │ 1014.7 │ 1015.4 │ 1016.0 │ 1015.8 │ 1015.9 │
 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │ 通常_0 │
 └────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+```
+
+### `otenki_asp (oa)`
+
+```shellsession
+$ zutool oa -h
+usage: zutool otenki_asp [-h] [-n N [N ...]] {01101,04101,13101,15103,17201,23106,27128,34101,39201,40133,47201}
+
+positional arguments:
+  {01101,04101,13101,15103,17201,23106,27128,34101,39201,40133,47201}
+                                                  see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)
+
+optional arguments:
+  -h, --help                                      show this help message and exit
+  -n N [N ...]                                    specify day number to show (default: [0, 1, 2, 3, 4, 5, 6])
+```
+
+```shellsession
+$ zutool oa 13101
+                                            <東京|13101>の天気情報
+┏━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+┃ 日付  ┃ 天気       ┃ 降水確率 ┃ 最高気温 ┃ 最低気温 ┃ 最大風速 ┃ 最大風速時風向 ┃ 気圧予報レベル ┃ 最小湿度 ┃
+┡━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+│ 08/02 │ 晴れ       │ 10.0     │ 35.0     │ 26.0     │ 11.2     │ 8.0            │ 2.0            │ 60.5     │
+│ 08/03 │ 晴れ       │ 10.0     │ 36.0     │ 26.0     │ 11.8     │ 8.0            │ 4.0            │ 63.6     │
+│ 08/04 │ 晴れ       │ 0.0      │ 36.0     │ 26.0     │ 10.0     │ 8.0            │ 2.0            │ 59.6     │
+│ 08/05 │ 晴れのち雨 │ 30.0     │ 36.0     │ 27.0     │ 11.8     │ 8.0            │ 1.0            │ 64.3     │
+│ 08/06 │ 雨のち晴れ │ 30.0     │ 36.0     │ 27.0     │ 10.3     │ 8.0            │ 2.0            │ 61.9     │
+│ 08/07 │ 晴れのち雨 │ 50.0     │ 33.0     │ 26.0     │ 7.2      │ 2.0            │ 2.0            │ 63.6     │
+│ 08/08 │ 雨一時晴れ │ 80.0     │ 33.0     │ 26.0     │ 6.2      │ 6.0            │ 1.0            │ 79.5     │
+└───────┴────────────┴──────────┴──────────┴──────────┴──────────┴────────────────┴────────────────┴──────────┘
 ```

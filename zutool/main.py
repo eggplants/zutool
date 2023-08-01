@@ -10,6 +10,7 @@ from rich.console import Console
 from rich.table import Table
 
 from . import api
+from .models.dict import CONFIRMED_OTENKI_ASP_CITY_CODE_DICT, WEATHER_EMOJI_DICT
 from .models.get_pain_status import _GetPainStatus
 
 if TYPE_CHECKING:
@@ -87,7 +88,7 @@ def __func_weather_status_helper(res: list[_WeatherStatusByTime], n: int, prev_p
         table.add_column(str(i))
     weathers, temps, pressures, pressure_levels = [], [], [], []
     for by_time in res[12 * n : 12 * (n + 1)]:
-        weathers.append({"100": "☼", "200": "☁", "300": "☔", "400": "☃"}[by_time.weather.value])
+        weathers.append(WEATHER_EMOJI_DICT[int(by_time.weather.value)])
         temps.append(f"{by_time.temp}℃")
         pressure = by_time.pressure
         pressures.append(
@@ -123,6 +124,29 @@ def func_weather_status(ns: argparse.Namespace) -> None:
         title = f"{res_raw.place_name}の気圧予報\n{res_raw.date_time+timedelta(days=day_idx-1)}"
         prev_pressure = __func_weather_status_helper(res, 0, 0, title)
         __func_weather_status_helper(res, 1, prev_pressure, title)
+
+
+def func_otenki_asp(ns: argparse.Namespace) -> None:
+    try:
+        res = api.get_otenki_asp(ns.city_code)
+    except ValueError as e:
+        print(f"{type(e).__name__}:", e, file=sys.stderr)
+        sys.exit(1)
+    if bool(ns.json):
+        print(res.model_dump_json(indent=4))
+        return
+    table = Table(title=f"<{CONFIRMED_OTENKI_ASP_CITY_CODE_DICT[ns.city_code]}|{ns.city_code}>の天気情報")
+    table.add_column("日付")
+    for element in res.elements:
+        table.add_column(element.title.replace("(日別)", ""))
+
+    target_date_times = [date_time for i, date_time in enumerate(res.elements[0].records.keys()) if i in ns.n]
+    for target_date_time in target_date_times:
+        table.add_row(
+            target_date_time.strftime("%m/%d"),
+            *[getattr(v := element.records[target_date_time], "name", str(v)) for element in res.elements],
+        )
+    Console().print(table)
 
 
 def parse(test_args: list[str] | None = None) -> argparse.Namespace:
@@ -203,6 +227,30 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     )
 
     weather_status_parser.set_defaults(func=func_weather_status)
+
+    otenki_asp_parser = subparsers.add_parser(
+        "otenki_asp",
+        aliases=["oa"],
+        formatter_class=lambda prog: __get_formatter_class(prog),
+        help="get weather infomations",
+    )
+    otenki_asp_parser.add_argument(
+        "city_code",
+        choices=CONFIRMED_OTENKI_ASP_CITY_CODE_DICT.keys(),
+        type=str,
+        help="see: <https://geoshape.ex.nii.ac.jp/city/code/> (ex. `13113`)",
+    )
+    otenki_asp_parser.add_argument(
+        "-n",
+        choices=range(7),
+        default=[*range(7)],
+        type=int,
+        metavar="N",
+        nargs="+",
+        help="specify day number to show",
+    )
+
+    otenki_asp_parser.set_defaults(func=func_otenki_asp)
 
     if test_args is not None:
         return parser.parse_args(test_args)
