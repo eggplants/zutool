@@ -145,7 +145,7 @@ def test_cli_ws_rich(capfd: pytest.CaptureFixture[str]) -> None:
     city_code = "13113"
     main(test_args=["ws", city_code])
     captured = capfd.readouterr()
-    assert "東京都渋谷区の気圧予報" in captured.out
+    assert f"<東京都渋谷区|{city_code}>の気圧予報" in captured.out
     assert not captured.err
 
 
