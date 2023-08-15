@@ -64,7 +64,7 @@ class GetOtenkiASPResponse(BaseModel):
     def __init__(self, raw_res: _GetOtenkiASPRawResponse) -> None:
         elements: list[_Element] = []
         for i, (content_id, title) in enumerate(
-            zip(raw_res.head.contents_id.split("--"), raw_res.head.title.split("--")),  # noqa: B905
+            zip(raw_res.head.contents_id.split("--"), raw_res.head.title.split("--")),
         ):
             records = {record.property[0]: record.property[1] for record in raw_res.body.location.element[i].record}
             elements.append(_Element(content_id=content_id, title=title, records=records))

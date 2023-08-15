@@ -48,12 +48,12 @@ def func_pain_status(ns: argparse.Namespace) -> None:
     sickness_emojies = ("😃", "😐", "😞", "🤯")
 
     data: list[str] = []
-    for emoji, sickness_key in zip(sickness_emojies, sickness_dic):  # noqa: B905
+    for emoji, sickness_key in zip(sickness_emojies, sickness_dic):
         sickness_val = getattr(res, sickness_key)
         data.append(f"{emoji*int(sickness_val/2)} {sickness_val}%")
     table.add_column("\n".join(data))
 
-    emoji_label_dic = zip(sickness_emojies, sickness_dic.values())  # noqa: B905
+    emoji_label_dic = zip(sickness_emojies, sickness_dic.values())
     table.add_row(
         "[" + ", ".join([f"{emoji}･･･{key}" for emoji, key in emoji_label_dic]) + "]",
     )
