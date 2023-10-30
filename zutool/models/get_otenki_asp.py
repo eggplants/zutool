@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from typing import Union
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -20,16 +21,19 @@ class _RawHead(BaseModel):
         return datetime.strptime(v, "%Y-%m-%d %H").replace(tzinfo=_JTC)
 
 
+_Property = tuple[datetime, Union[WeatherEnum, float, None]]
+
+
 class _RawProperty(BaseModel):
-    property: tuple[datetime, WeatherEnum | float]  # noqa: A003
+    property: _Property  # noqa: A003
 
     @field_validator("property", mode="before")
-    def validate_property(cls, vs: tuple[str, ...]) -> tuple[datetime, WeatherEnum | float]:
+    def validate_property(cls, vs: tuple[str, ...]) -> _Property:
         dt = datetime.strptime(vs[0], "%Y%m%d").replace(tzinfo=_JTC)
         if len(vs) == 2:  # noqa: PLR2004
-            return (dt, float(vs[1]))
+            return (dt, None if vs[1] == "-" else float(vs[1]))
         if len(vs) == 3:  # noqa: PLR2004
-            return (dt, WeatherEnum(vs[2]))
+            return (dt, None if vs[2] == "-" else WeatherEnum(vs[2]))
         raise ValueError(vs)
 
 
@@ -53,7 +57,7 @@ class _GetOtenkiASPRawResponse(BaseModel):
 class _Element(BaseModel):
     content_id: str
     title: str
-    records: dict[datetime, WeatherEnum | float]
+    records: dict[datetime, Union[WeatherEnum, float, None]]  # noqa: UP007
 
 
 class GetOtenkiASPResponse(BaseModel):
