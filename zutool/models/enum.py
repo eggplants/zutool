@@ -5,8 +5,8 @@ from enum import Enum
 
 # https://zutool.jp/img/weatherpoint/map_kiatu_icon_lv{level}.png
 class PressureLevelEnum(Enum):
-    通常_0 = "0"
-    通常_1 = "1"
+    通常 = "0"
+    # 通常_1 = "1"  # noqa: ERA001
     やや警戒 = "2"
     注意 = "3"
     警戒 = "4"
