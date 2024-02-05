@@ -92,11 +92,11 @@ def __func_weather_status_helper(res: list[_WeatherStatusByTime], n: int, prev_p
         temps.append(f"{by_time.temp}℃")
         pressure = by_time.pressure
         pressures.append(
-            f"↗\n{pressure}"
-            if pressure > prev_pressure
-            else f"↘\n{pressure}"
-            if pressure < prev_pressure
-            else f"→\n{pressure}",
+            (
+                f"↗\n{pressure}"
+                if pressure > prev_pressure
+                else f"↘\n{pressure}" if pressure < prev_pressure else f"→\n{pressure}"
+            ),
         )
         pressure_levels.append(by_time.pressure_level.name)
     table.add_row(*weathers)
