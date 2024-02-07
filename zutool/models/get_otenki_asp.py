@@ -25,7 +25,7 @@ _Property = tuple[datetime, Union[WeatherEnum, float, None]]
 
 
 class _RawProperty(BaseModel):
-    property: _Property  # noqa: A003
+    property: _Property
 
     @field_validator("property", mode="before")
     def validate_property(cls, vs: tuple[str, ...]) -> _Property:
