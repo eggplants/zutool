@@ -4,9 +4,10 @@ requires = [
   "poetry-core",
 ]
 
-[tool]
 [tool.poetry]
-authors = ["eggplants <w10776e8w@yahoo.co.jp>"]
+authors = [
+  "eggplants <w10776e8w@yahoo.co.jp>",
+]
 classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
@@ -15,9 +16,13 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
 ]
 description = "Unofficial zutool (頭痛ール: https://zutool.jp/) API Wrapper"
-keywords = ["zutool"]
+keywords = [
+  "zutool",
+]
 name = "zutool"
-packages = [{include = "zutool"}]
+packages = [
+  { include = "zutool" },
+]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/eggplants/zutool"
@@ -42,27 +47,31 @@ zutool = "zutool.main:main"
 
 [tool.black]
 line-length = 120
-target-version = ['py39']
+target-version = [
+  'py39',
+]
 
 [tool.ruff]
-select = ["ALL"]
-ignore = ["D", "ANN101"]
 line-length = 120
 
-[tool.ruff.mccabe]
-max-complexity = 18
-
-[tool.ruff.per-file-ignores]
-"main.py" = [
+select = [
+  "ALL",
+]
+ignore = [
+  "D",
+  "ANN101",
+]
+per-file-ignores."main.py" = [
   "T201", # `print` found
 ]
-"zutool/models/*.py" = [
+per-file-ignores."zutool/models/*.py" = [
   "N805", # First argument of a method should be named `self`
 ]
-"tests/*test_*.py" = [
-  "INP001",  # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
-  "S101", # Use of assert detected
+per-file-ignores."tests/*test_*.py" = [
+  "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
+  "S101",   # Use of assert detected
 ]
+mccabe.max-complexity = 18
 
 [tool.mypy]
 pretty = true
@@ -70,8 +79,10 @@ python_version = "3.9"
 show_error_codes = true
 strict = true
 plugins = [
-  "pydantic.mypy"
+  "pydantic.mypy",
 ]
+
+[tool]
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
