@@ -54,26 +54,25 @@ target-version = [
 [tool.ruff]
 line-length = 120
 
-[tool.ruff.lint]
-select = [
+lint.select = [
   "ALL",
 ]
-ignore = [
-  "D",
+lint.ignore = [
   "ANN101",
+  "D",
 ]
-mccabe.max-complexity = 18
-per-file-ignores."main.py" = [
+lint.per-file-ignores."main.py" = [
   "T201", # `print` found
 ]
-per-file-ignores."zutool/models/*.py" = [
-  "N805",    # First argument of a method should be named `self`
-  "PLC2401", # Variable name contains a non-ASCII character
-]
-per-file-ignores."tests/*test_*.py" = [
+lint.per-file-ignores."tests/test_*.py" = [
   "INP001", # File tests/test_*.py is part of an implicit namespace package. Add an __init__.py.
   "S101",   # Use of assert detected
 ]
+lint.per-file-ignores."zutool/models/*.py" = [
+  "N805",    # First argument of a method should be named `self`
+  "PLC2401", # Variable name contains a non-ASCII character
+]
+lint.mccabe.max-complexity = 18
 
 [tool.mypy]
 pretty = true
