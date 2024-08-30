@@ -39,6 +39,8 @@ Unofficial zutool (頭痛ール: <https://zutool.jp/>) API Wrapper
 ## Install
 
 ```bash
+pipx install zutool
+# or,
 pip install zutool
 ```
 
