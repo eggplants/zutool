@@ -27,9 +27,9 @@
 )
 
 [![ghcr latest](
-  <https://ghcr-badge.deta.dev/eggplants/zutool/latest_tag?trim=major&label=latest>
+  <https://ghcr-badge.egpl.dev/eggplants/zutool/latest_tag?trim=major&label=latest>
  ) ![ghcr size](
-  <https://ghcr-badge.deta.dev/eggplants/zutool/size>
+  <https://ghcr-badge.egpl.dev/eggplants/zutool/size>
 )](
   <https://github.com/eggplants/zutool/pkgs/container/zutool>
 )
