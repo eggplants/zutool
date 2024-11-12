@@ -89,7 +89,7 @@ def __func_weather_status_helper(res: list[_WeatherStatusByTime], n: int, prev_p
     weathers, temps, pressures, pressure_levels = [], [], [], []
     for by_time in res[12 * n : 12 * (n + 1)]:
         weathers.append(WEATHER_EMOJI_DICT[int(by_time.weather.value)])
-        temps.append(f"{by_time.temp}℃")
+        temps.append(f"{by_time.temp or '-'}℃")
         pressure = by_time.pressure
         pressures.append(
             (

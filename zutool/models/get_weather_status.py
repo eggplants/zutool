@@ -12,7 +12,7 @@ _JTC = timezone(timedelta(hours=9))
 class _WeatherStatusByTime(BaseModel):
     time: int = Field(ge=0, le=24)
     weather: WeatherEnum
-    temp: float
+    temp: float | None
     pressure: float
     pressure_level: PressureLevelEnum
 
@@ -23,6 +23,10 @@ class _WeatherStatusByTime(BaseModel):
         except KeyError as e:
             msg = f"Error validating weather {e}. Valid ones are: {[w.name for w in WeatherEnum]}"
             raise ValueError(msg) from e
+
+    @field_validator("temp", mode="before")
+    def validate_temp(cls, v: str) -> float | None:
+        return None if v == "#" else float(v)
 
     @field_validator("pressure_level", mode="before")
     def validate_pressure_level(cls, v: str) -> PressureLevelEnum:
