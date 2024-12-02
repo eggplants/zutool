@@ -7,9 +7,9 @@ from .set_weather_point import SetWeatherPointResponse
 
 __all__ = (
     "ErrorResponse",
+    "GetOtenkiASPResponse",
     "GetPainStatusResponse",
     "GetWeatherPointResponse",
     "GetWeatherStatusResponse",
-    "GetOtenkiASPResponse",
     "SetWeatherPointResponse",
 )
