@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, RootModel, field_validator
 
 class _WeatherPoint(BaseModel):
     city_code: str = Field(pattern="^\\d{5}$")
-    name_kata: str = Field(pattern="^[\uFF61-\uFF9F]+$")
+    name_kata: str = Field(pattern="^[\uff61-\uff9f]+$")
     name: str
 
 
