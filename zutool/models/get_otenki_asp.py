@@ -5,7 +5,7 @@ from typing import Union
 
 from pydantic import BaseModel, Field, field_validator
 
-from .enum import WeatherEnum
+from .enum_type import WeatherEnum
 
 _JTC = timezone(timedelta(hours=9))
 

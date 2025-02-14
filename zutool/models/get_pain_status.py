@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field, PositiveFloat, field_validator
 
-from .enum import AreaEnum
+from .enum_type import AreaEnum
 
 
 class _GetPainStatus(BaseModel):

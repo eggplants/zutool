@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 
 from pydantic import BaseModel, Field, field_validator
 
-from .enum import AreaEnum, PressureLevelEnum, WeatherEnum
+from .enum_type import AreaEnum, PressureLevelEnum, WeatherEnum
 
 _JTC = timezone(timedelta(hours=9))
 

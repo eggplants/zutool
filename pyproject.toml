@@ -65,7 +65,6 @@ lint.select = [
   "ALL",
 ]
 lint.ignore = [
-  "ANN101",
   "D",
 ]
 lint.per-file-ignores."main.py" = [
