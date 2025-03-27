@@ -5,17 +5,17 @@
   )](
   <https://badge.fury.io/py/zutool>
 ) [![Maintainability](
-  <https://api.codeclimate.com/v1/badges/b999c03e104b0629e426/maintainability>
+  <https://qlty.sh/badges/ddb7a44f-c9b0-4164-a409-a3d06521b937/maintainability.svg>
   )](
-  <https://codeclimate.com/github/eggplants/zutool/maintainability>
-) [![pre-commit.ci status](
+  <https://qlty.sh/gh/eggplants/projects/zutool>
+  ) [![pre-commit.ci status](
   <https://results.pre-commit.ci/badge/github/eggplants/zutool/master.svg>
   )](
   <https://results.pre-commit.ci/latest/github/eggplants/zutool/master>
-) [![Test Coverage](
-  <https://api.codeclimate.com/v1/badges/b999c03e104b0629e426/test_coverage>
+) [![Code Coverage](
+  <https://qlty.sh/badges/ddb7a44f-c9b0-4164-a409-a3d06521b937/test_coverage.svg>
   )](
-  <https://codeclimate.com/github/eggplants/zutool/test_coverage>
+  <https://qlty.sh/gh/eggplants/projects/zutool>
 ) [![Test](
   <https://github.com/eggplants/zutool/actions/workflows/test.yml/badge.svg>
   )](

@@ -1,6 +1,11 @@
 import pytest
 
-from zutool import get_otenki_asp, get_pain_status, get_weather_point, get_weather_status
+from zutool import (
+    get_otenki_asp,
+    get_pain_status,
+    get_weather_point,
+    get_weather_status,
+)
 from zutool.main import main
 
 HTTP_NOT_FOUND = 404

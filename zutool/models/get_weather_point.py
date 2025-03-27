@@ -19,4 +19,6 @@ class GetWeatherPointResponse(BaseModel):
 
     @field_validator("result", mode="before")
     def validate_result(cls, v: str) -> _WeatherPoints:
-        return _WeatherPoints.model_validate_json(bytes(v, "utf-8").decode("unicode_escape"))
+        return _WeatherPoints.model_validate_json(
+            bytes(v, "utf-8").decode("unicode_escape"),
+        )

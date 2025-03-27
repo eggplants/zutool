@@ -1,21 +1,14 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core>=2",
-]
+build-backend = "hatchling.build"
+requires = [ "hatchling", "uv-dynamic-versioning" ]
 
 [project]
 name = "zutool"
-version = "0.2.0"
 description = "Unofficial zutool (頭痛ール: https://zutool.jp/) API Wrapper"
 readme = "README.md"
-keywords = [
-  "zutool",
-]
+keywords = [ "zutool" ]
 license = { text = "MIT" }
-authors = [
-  { name = "eggplants", email = "w10776e8w@yahoo.co.jp" },
-]
+authors = [ { name = "eggplants", email = "w10776e8w@yahoo.co.jp" } ]
 requires-python = ">=3.9,<4"
 classifiers = [
   "License :: OSI Approved :: MIT License",
@@ -27,40 +20,42 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
+dynamic = [ "version" ]
 dependencies = [
   "pydantic>=2.10.5,<3",
   "requests>=2.32.3,<3",
   "rich>=13.9.4,<14",
 ]
+
 urls.Repository = "https://github.com/eggplants/zutool"
 scripts.zutool = "zutool.main:main"
 
-[tool.poetry]
-requires-poetry = ">=2.0"
-packages = [
-  { include = "zutool" },
+[dependency-groups]
+dev = [
+  "mypy>=0.991,<1.15",
+  "pre-commit>=2.20,<5",
+  "pytest>=7.2.2,<9",
+  "pytest-cov>=4,<7",
+  "taskipy>=1.10.3,<2",
+  "types-requests>=2.28.11.15,<3",
 ]
+docs = [ "pdoc" ]
 
-[tool.poetry.group.dev.dependencies]
-mypy = ">=0.991,<1.15"
-pre-commit = ">=2.20,<5.0"
-taskipy = "^1.10.3"
-types-requests = "^2.28.11.15"
-pytest = ">=7.2.2,<9.0.0"
-pytest-cov = ">=4,<7"
+[tool.hatch.version]
+# tool.hatch.version.source is not listed in official schema.
+# https://github.com/ninoseki/uv-dynamic-versioning/issues/21
+source = "uv-dynamic-versioning"
 
-[tool.poetry.requires-plugins]
-poetry-plugin-shell = ">=1.0"
+[tool.hatch.build.targets.sdist]
+include = [ "zutool" ]
 
-[tool.black]
-line-length = 120
-target-version = [
-  'py39',
-]
+[tool.hatch.build.targets.wheel]
+include = [ "zutool" ]
 
 [tool.ruff]
 line-length = 120
-
+format.indent-style = "space"
+format.quote-style = "double"
 lint.select = [
   "ALL",
 ]
@@ -77,16 +72,30 @@ lint.per-file-ignores."zutool/models/*.py" = [
   "N805",    # First argument of a method should be named `self`
   "PLC2401", # Variable name contains a non-ASCII character
 ]
-lint.mccabe.max-complexity = 18
+lint.pydocstyle.convention = "google"
 
 [tool.mypy]
 pretty = true
-python_version = "3.9"
+python_version = "3.12"
 show_error_codes = true
 strict = true
 plugins = [
   "pydantic.mypy",
 ]
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+
+[tool.uv]
+default-groups = [
+  "dev",
+  "docs",
+]
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "semver"
 
 [tool.pydantic-mypy]
 init_forbid_extra = true
@@ -99,3 +108,4 @@ test = "pytest --cov=zutool --cov-report=term"
 "test:ci" = "task test --cov-report=xml:cov.xml"
 lint = "pre-commit run -a"
 profile = "python -m cProfile"
+gendoc = "pdoc zutool -o ./docs --docformat google"

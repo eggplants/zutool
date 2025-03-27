@@ -17,7 +17,10 @@ if TYPE_CHECKING:
     from .models.get_weather_status import _WeatherStatusByTime
 
 
-class _ZutoolFormatter(argparse.ArgumentDefaultsHelpFormatter, argparse.RawDescriptionHelpFormatter):
+class _ZutoolFormatter(
+    argparse.ArgumentDefaultsHelpFormatter,
+    argparse.RawDescriptionHelpFormatter,
+):
     pass
 
 
@@ -31,7 +34,10 @@ def __get_formatter_class(prog: str, max_help_position: int = 50) -> _ZutoolForm
 
 def func_pain_status(ns: argparse.Namespace) -> None:
     try:
-        res_raw = api.get_pain_status(ns.area_code, set_weather_point=ns.set_weather_point)
+        res_raw = api.get_pain_status(
+            ns.area_code,
+            set_weather_point=ns.set_weather_point,
+        )
     except ValueError as e:
         print(f"{type(e).__name__}:", e, file=sys.stderr)
         sys.exit(1)
@@ -44,7 +50,11 @@ def func_pain_status(ns: argparse.Namespace) -> None:
     title_b = f"(集計時間: {res.time_start}時-{res.time_end}時台)"
     table = Table(title=f"{title_a}\n{title_b}")
 
-    sickness_dic = {k: v.alias for k, v in _GetPainStatus.model_fields.items() if k.startswith("rate_")}
+    sickness_dic = {
+        k: v.alias
+        for k, v in _GetPainStatus.model_fields.items()
+        if k.startswith("rate_")
+    }
     sickness_emojies = ("😃", "😐", "😞", "🤯")
 
     data: list[str] = []
@@ -82,7 +92,12 @@ def func_weather_point(ns: argparse.Namespace) -> None:
     Console().print(table)
 
 
-def __func_weather_status_helper(res: list[_WeatherStatusByTime], n: int, prev_pressure: float, title: str) -> float:
+def __func_weather_status_helper(
+    res: list[_WeatherStatusByTime],
+    n: int,
+    prev_pressure: float,
+    title: str,
+) -> float:
     table = Table()
     for i in range(12 * n, 12 * (n + 1)):
         table.add_column(str(i))
@@ -120,7 +135,9 @@ def func_weather_status(ns: argparse.Namespace) -> None:
         print(res_raw.model_dump_json(indent=4))
         return
 
-    for day_idx, day in [(n, ("yesterday", "today", "tomorrow", "dayaftertomorrow")[n + 1]) for n in ns.n]:
+    for day_idx, day in [
+        (n, ("yesterday", "today", "tomorrow", "dayaftertomorrow")[n + 1]) for n in ns.n
+    ]:
         res: list[_WeatherStatusByTime] = getattr(res_raw, day)
         title = f"<{res_raw.place_name}|{ns.city_code}>の気圧予報\n{day} = {res_raw.date_time+timedelta(days=day_idx)}"
         prev_pressure = __func_weather_status_helper(res, 0, 0, title)
@@ -136,16 +153,25 @@ def func_otenki_asp(ns: argparse.Namespace) -> None:
     if bool(ns.json):
         print(res.model_dump_json(indent=4))
         return
-    table = Table(title=f"<{CONFIRMED_OTENKI_ASP_CITY_CODE_DICT[ns.city_code]}|{ns.city_code}>の天気情報")
+    table = Table(
+        title=f"<{CONFIRMED_OTENKI_ASP_CITY_CODE_DICT[ns.city_code]}|{ns.city_code}>の天気情報",
+    )
     table.add_column("日付")
     for element in res.elements:
         table.add_column(element.title.replace("(日別)", ""))
 
-    target_date_times = [date_time for i, date_time in enumerate(res.elements[0].records.keys()) if i in ns.n]
+    target_date_times = [
+        date_time
+        for i, date_time in enumerate(res.elements[0].records.keys())
+        if i in ns.n
+    ]
     for target_date_time in target_date_times:
         table.add_row(
             target_date_time.strftime("%m/%d"),
-            *[getattr(v := element.records[target_date_time], "name", str(v)) for element in res.elements],
+            *[
+                getattr(v := element.records[target_date_time], "name", str(v))
+                for element in res.elements
+            ],
         )
     Console().print(table)
 
