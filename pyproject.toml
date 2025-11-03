@@ -18,6 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Typing :: Typed",
 ]
 dynamic = [ "version" ]
@@ -51,6 +52,12 @@ include = [ "zutool" ]
 
 [tool.hatch.build.targets.wheel]
 include = [ "zutool" ]
+
+[tool.uv]
+default-groups = [
+  "dev",
+  "docs",
+]
 
 [tool.ruff]
 line-length = 120
@@ -86,12 +93,6 @@ plugins = [
 [tool.pyright]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
-
-[tool.uv]
-default-groups = [
-  "dev",
-  "docs",
-]
 
 [tool.uv-dynamic-versioning]
 vcs = "git"
