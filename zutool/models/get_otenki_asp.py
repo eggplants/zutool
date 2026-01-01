@@ -70,10 +70,7 @@ class GetOtenkiASPResponse(BaseModel):
         for i, (content_id, title) in enumerate(
             zip(raw_res.head.contents_id.split("--"), raw_res.head.title.split("--")),
         ):
-            records = {
-                record.property[0]: record.property[1]
-                for record in raw_res.body.location.element[i].record
-            }
+            records = {record.property[0]: record.property[1] for record in raw_res.body.location.element[i].record}
             elements.append(
                 _Element(content_id=content_id, title=title, records=records),
             )

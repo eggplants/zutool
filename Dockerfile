@@ -1,10 +1,18 @@
-FROM python:3
+FROM python:3.14-slim
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-ARG VERSION
-ENV VERSION ${VERSION:-master}
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN pip install --upgrade pip
+COPY . /app
 
-RUN python -m pip install git+https://github.com/eggplants/zutool@${VERSION}
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+ENV UV_NO_DEV=1
+ENV PYTHONUNBUFFERED=1
 
-ENTRYPOINT ["zutool"]
+WORKDIR /app
+RUN uv sync --locked --no-dev
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+CMD ["uv", "run", "zutool"]

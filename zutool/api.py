@@ -56,7 +56,7 @@ def __get(
         timeout=TIMEOUT,
         headers={"User-Agent": UA},
     )
-    if res.status_code == requests.codes.ok:
+    if res.status_code == 200:  # noqa: PLR2004
         try:
             return model.model_validate_json(res.text)
         except ValidationError as e:

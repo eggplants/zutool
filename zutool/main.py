@@ -50,17 +50,13 @@ def func_pain_status(ns: argparse.Namespace) -> None:
     title_b = f"(集計時間: {res.time_start}時-{res.time_end}時台)"
     table = Table(title=f"{title_a}\n{title_b}")
 
-    sickness_dic = {
-        k: v.alias
-        for k, v in _GetPainStatus.model_fields.items()
-        if k.startswith("rate_")
-    }
+    sickness_dic = {k: v.alias for k, v in _GetPainStatus.model_fields.items() if k.startswith("rate_")}
     sickness_emojies = ("😃", "😐", "😞", "🤯")
 
     data: list[str] = []
     for emoji, sickness_key in zip(sickness_emojies, sickness_dic):
         sickness_val = getattr(res, sickness_key)
-        data.append(f"{emoji*int(sickness_val/2)} {sickness_val}%")
+        data.append(f"{emoji * int(sickness_val / 2)} {sickness_val}%")
     table.add_column("\n".join(data))
 
     emoji_label_dic = zip(sickness_emojies, sickness_dic.values())
@@ -110,7 +106,9 @@ def __func_weather_status_helper(
             (
                 f"↗\n{pressure}"
                 if pressure > prev_pressure
-                else f"↘\n{pressure}" if pressure < prev_pressure else f"→\n{pressure}"
+                else f"↘\n{pressure}"
+                if pressure < prev_pressure
+                else f"→\n{pressure}"
             ),
         )
         pressure_levels.append(by_time.pressure_level.name)
@@ -135,11 +133,11 @@ def func_weather_status(ns: argparse.Namespace) -> None:
         print(res_raw.model_dump_json(indent=4))
         return
 
-    for day_idx, day in [
-        (n, ("yesterday", "today", "tomorrow", "dayaftertomorrow")[n + 1]) for n in ns.n
-    ]:
+    for day_idx, day in [(n, ("yesterday", "today", "tomorrow", "dayaftertomorrow")[n + 1]) for n in ns.n]:
         res: list[_WeatherStatusByTime] = getattr(res_raw, day)
-        title = f"<{res_raw.place_name}|{ns.city_code}>の気圧予報\n{day} = {res_raw.date_time+timedelta(days=day_idx)}"
+        title = (
+            f"<{res_raw.place_name}|{ns.city_code}>の気圧予報\n{day} = {res_raw.date_time + timedelta(days=day_idx)}"
+        )
         prev_pressure = __func_weather_status_helper(res, 0, 0, title)
         __func_weather_status_helper(res, 1, prev_pressure, title)
 
@@ -160,18 +158,11 @@ def func_otenki_asp(ns: argparse.Namespace) -> None:
     for element in res.elements:
         table.add_column(element.title.replace("(日別)", ""))
 
-    target_date_times = [
-        date_time
-        for i, date_time in enumerate(res.elements[0].records.keys())
-        if i in ns.n
-    ]
+    target_date_times = [date_time for i, date_time in enumerate(res.elements[0].records.keys()) if i in ns.n]
     for target_date_time in target_date_times:
         table.add_row(
             target_date_time.strftime("%m/%d"),
-            *[
-                getattr(v := element.records[target_date_time], "name", str(v))
-                for element in res.elements
-            ],
+            *[getattr(v := element.records[target_date_time], "name", str(v)) for element in res.elements],
         )
     Console().print(table)
 

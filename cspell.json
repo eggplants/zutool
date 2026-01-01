@@ -1,0 +1,41 @@
+{
+  "language": "en_US",
+  "words": [
+    "Anson",
+    "asyncio",
+    "charliermarsh",
+    "docformat",
+    "euxo",
+    "gruntfuggly",
+    "hverlin",
+    "junitxml",
+    "pdoc",
+    "pipefail",
+    "pydantic",
+    "pydocstyle",
+    "pymarkdown",
+    "pymarkdownlnt",
+    "pyproject",
+    "pytest",
+    "PYTHONUNBUFFERED",
+    "sdist",
+    "tombi",
+    "venv",
+    "zutool"
+  ],
+  "dictionaries": [
+    "companies",
+    "markdown",
+    "misc",
+    "softwareTerms",
+    "useCompounds"
+  ],
+  "ignorePaths": [
+    ".gitignore",
+    ".cspell.json"
+  ],
+  "features": {
+    "weighted-suggestions": true
+  },
+  "useGitignore": true
+}
