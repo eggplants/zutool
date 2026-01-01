@@ -161,7 +161,7 @@ def test_cli_ws_invalid_n(capfd: pytest.CaptureFixture[str]) -> None:
     assert e.value.args[0] == CMD_PARSE_ERROR_CODE
     captured = capfd.readouterr()
     assert not captured.out
-    assert "invalid choice: -2" in captured.err
+    assert "invalid choice: '-2'" in captured.err
 
 
 def test_cli_oa_rich(capfd: pytest.CaptureFixture[str]) -> None:
@@ -179,7 +179,7 @@ def test_cli_oa_invalid_n(capfd: pytest.CaptureFixture[str]) -> None:
     assert e.value.args[0] == CMD_PARSE_ERROR_CODE
     captured = capfd.readouterr()
     assert not captured.out
-    assert "invalid choice: -2" in captured.err
+    assert "invalid choice: '-2'" in captured.err
 
 
 def test_cli_oa_invalid_city_code(capfd: pytest.CaptureFixture[str]) -> None:
