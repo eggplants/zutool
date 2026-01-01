@@ -68,15 +68,9 @@ zutool    </h1>
 
 <p><a href="https://badge.fury.io/py/zutool
 "><img src="https://badge.fury.io/py/zutool.svg
-  " alt="PyPI version" /></a> <a href="https://qlty.sh/gh/eggplants/projects/zutool
-  "><img src="https://qlty.sh/badges/ddb7a44f-c9b0-4164-a409-a3d06521b937/maintainability.svg
-  " alt="Maintainability" /></a> <a href="https://results.pre-commit.ci/latest/github/eggplants/zutool/master
-"><img src="https://results.pre-commit.ci/badge/github/eggplants/zutool/master.svg
-  " alt="pre-commit.ci status" /></a> <a href="https://qlty.sh/gh/eggplants/projects/zutool
-"><img src="https://qlty.sh/badges/ddb7a44f-c9b0-4164-a409-a3d06521b937/test_coverage.svg
-  " alt="Code Coverage" /></a> <a href="https://github.com/eggplants/zutool/actions/workflows/test.yml
-"><img src="https://github.com/eggplants/zutool/actions/workflows/test.yml/badge.svg
-  " alt="Test" /></a> <a href="https://github.com/eggplants/zutool/actions/workflows/release.yml
+  " alt="PyPI version" /></a> <a href="https://github.com/eggplants/zutool/actions/workflows/ci.yml
+"><img src="https://github.com/eggplants/zutool/actions/workflows/ci.yml/badge.svg
+  " alt="CI" /></a> <a href="https://github.com/eggplants/zutool/actions/workflows/release.yml
 "><img src="https://github.com/eggplants/zutool/actions/workflows/release.yml/badge.svg
   " alt="Release" /></a></p>
 
@@ -99,7 +93,7 @@ pip<span class="w"> </span>install<span class="w"> </span>zutool
 <h2 id="as-library">As Library</h2>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="kn">import</span> <span class="nn">zutool</span> <span class="k">as</span> <span class="nn">z</span>
+<pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">zutool</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">z</span>
 
 <span class="c1"># see: &lt;https://nlftp.mlit.go.jp/ksj/gml/codelist/PrefCd.html&gt;</span>
 <span class="n">area_code</span> <span class="o">=</span> <span class="s2">&quot;13&quot;</span> <span class="c1"># 東京都</span>
@@ -258,11 +252,11 @@ optional arguments:
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;.. include:: ../README.md&quot;&quot;&quot;</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">import</span> <span class="nn">importlib.metadata</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">import</span><span class="w"> </span><span class="nn">importlib.metadata</span>
 </span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span> <span class="nn">.api</span> <span class="kn">import</span> <span class="n">get_otenki_asp</span><span class="p">,</span> <span class="n">get_pain_status</span><span class="p">,</span> <span class="n">get_weather_point</span><span class="p">,</span> <span class="n">get_weather_status</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_otenki_asp</span><span class="p">,</span> <span class="n">get_pain_status</span><span class="p">,</span> <span class="n">get_weather_point</span><span class="p">,</span> <span class="n">get_weather_status</span>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="k">try</span><span class="p">:</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -291,7 +285,7 @@ optional arguments:
 
     </div>
     <a class="headerlink" href="#get_otenki_asp"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_otenki_asp-89"><a href="#get_otenki_asp-89"><span class="linenos"> 89</span></a><span class="k">def</span> <span class="nf">get_otenki_asp</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetOtenkiASPResponse</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_otenki_asp-89"><a href="#get_otenki_asp-89"><span class="linenos"> 89</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_otenki_asp</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetOtenkiASPResponse</span><span class="p">:</span>
 </span><span id="get_otenki_asp-90"><a href="#get_otenki_asp-90"><span class="linenos"> 90</span></a>    <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
 </span><span id="get_otenki_asp-91"><a href="#get_otenki_asp-91"><span class="linenos"> 91</span></a>        <span class="s2">&quot;csid&quot;</span><span class="p">:</span> <span class="s2">&quot;mmcm&quot;</span><span class="p">,</span>
 </span><span id="get_otenki_asp-92"><a href="#get_otenki_asp-92"><span class="linenos"> 92</span></a>        <span class="s2">&quot;contents_id&quot;</span><span class="p">:</span> <span class="s2">&quot;day_tenki--day_pre--hight_temp--low_temp--day_wind_v--day_wind_d--zutu_level_day--low_humidity&quot;</span><span class="p">,</span>
@@ -309,7 +303,7 @@ optional arguments:
 </span><span id="get_otenki_asp-104"><a href="#get_otenki_asp-104"><span class="linenos">104</span></a>        <span class="n">raw_res</span> <span class="o">=</span> <span class="n">_GetOtenkiASPRawResponse</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </span><span id="get_otenki_asp-105"><a href="#get_otenki_asp-105"><span class="linenos">105</span></a>        <span class="k">return</span> <span class="n">GetOtenkiASPResponse</span><span class="p">(</span><span class="n">raw_res</span><span class="p">)</span>
 </span><span id="get_otenki_asp-106"><a href="#get_otenki_asp-106"><span class="linenos">106</span></a>    <span class="k">except</span> <span class="n">ValidationError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span><span id="get_otenki_asp-107"><a href="#get_otenki_asp-107"><span class="linenos">107</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+</span><span id="get_otenki_asp-107"><a href="#get_otenki_asp-107"><span class="linenos">107</span></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 </span></pre></div>
 
 
@@ -327,7 +321,7 @@ optional arguments:
 
     </div>
     <a class="headerlink" href="#get_pain_status"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_pain_status-69"><a href="#get_pain_status-69"><span class="linenos">69</span></a><span class="k">def</span> <span class="nf">get_pain_status</span><span class="p">(</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_pain_status-69"><a href="#get_pain_status-69"><span class="linenos">69</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_pain_status</span><span class="p">(</span>
 </span><span id="get_pain_status-70"><a href="#get_pain_status-70"><span class="linenos">70</span></a>    <span class="n">area_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="get_pain_status-71"><a href="#get_pain_status-71"><span class="linenos">71</span></a>    <span class="n">set_weather_point</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="get_pain_status-72"><a href="#get_pain_status-72"><span class="linenos">72</span></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetPainStatusResponse</span><span class="p">:</span>
@@ -354,7 +348,7 @@ optional arguments:
 
     </div>
     <a class="headerlink" href="#get_weather_point"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_point-81"><a href="#get_weather_point-81"><span class="linenos">81</span></a><span class="k">def</span> <span class="nf">get_weather_point</span><span class="p">(</span><span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherPointResponse</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_point-81"><a href="#get_weather_point-81"><span class="linenos">81</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_weather_point</span><span class="p">(</span><span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherPointResponse</span><span class="p">:</span>
 </span><span id="get_weather_point-82"><a href="#get_weather_point-82"><span class="linenos">82</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">&quot;/getweatherpoint&quot;</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">GetWeatherPointResponse</span><span class="p">)</span>
 </span></pre></div>
 
@@ -373,7 +367,7 @@ optional arguments:
 
     </div>
     <a class="headerlink" href="#get_weather_status"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_status-85"><a href="#get_weather_status-85"><span class="linenos">85</span></a><span class="k">def</span> <span class="nf">get_weather_status</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherStatusResponse</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_status-85"><a href="#get_weather_status-85"><span class="linenos">85</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_weather_status</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherStatusResponse</span><span class="p">:</span>
 </span><span id="get_weather_status-86"><a href="#get_weather_status-86"><span class="linenos">86</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">&quot;/getweatherstatus&quot;</span><span class="p">,</span> <span class="n">city_code</span><span class="p">,</span> <span class="n">GetWeatherStatusResponse</span><span class="p">)</span>
 </span></pre></div>
 
