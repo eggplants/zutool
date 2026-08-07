@@ -42,9 +42,9 @@ docs = [
 ]
 
 [tool.hatch]
-build.targets.sdist.include = [ "zutool" ]
-build.targets.wheel.include = [ "zutool" ]
 version.source = "uv-dynamic-versioning"
+build.targets.wheel.include = [ "zutool" ]
+build.targets.sdist.include = [ "zutool" ]
 
 [tool.uv]
 python-downloads = "never"
