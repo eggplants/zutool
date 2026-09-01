@@ -96,17 +96,17 @@ pip<span class="w"> </span>install<span class="w"> </span>zutool
 <pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">zutool</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">z</span>
 
 <span class="c1"># see: &lt;https://nlftp.mlit.go.jp/ksj/gml/codelist/PrefCd.html&gt;</span>
-<span class="n">area_code</span> <span class="o">=</span> <span class="s2">&quot;13&quot;</span> <span class="c1"># 東京都</span>
+<span class="n">area_code</span> <span class="o">=</span> <span class="s2">"13"</span> <span class="c1"># 東京都</span>
 <span class="n">z</span><span class="o">.</span><span class="n">get_pain_status</span><span class="p">(</span><span class="n">area_code</span><span class="p">)</span>
 
-<span class="n">keyword</span> <span class="o">=</span> <span class="s2">&quot;東京都&quot;</span>
+<span class="n">keyword</span> <span class="o">=</span> <span class="s2">"東京都"</span>
 <span class="n">z</span><span class="o">.</span><span class="n">get_weather_point</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span>
 
 <span class="c1"># see: &lt;https://geoshape.ex.nii.ac.jp/city/code/?13113&gt;</span>
-<span class="n">city_code</span> <span class="o">=</span> <span class="s2">&quot;13113&quot;</span> <span class="c1"># 東京都渋谷区</span>
+<span class="n">city_code</span> <span class="o">=</span> <span class="s2">"13113"</span> <span class="c1"># 東京都渋谷区</span>
 <span class="n">z</span><span class="o">.</span><span class="n">get_weather_status</span><span class="p">(</span><span class="n">city_code</span><span class="p">)</span>
 
-<span class="n">city_code</span> <span class="o">=</span> <span class="s2">&quot;13101&quot;</span> <span class="c1"># 東京都千代田区</span>
+<span class="n">city_code</span> <span class="o">=</span> <span class="s2">"13101"</span> <span class="c1"># 東京都千代田区</span>
 <span class="n">z</span><span class="o">.</span><span class="n">get_otenki_asp</span><span class="p">(</span><span class="n">city_code</span><span class="p">)</span>
 </code></pre>
 </div>
@@ -250,7 +250,7 @@ optional arguments:
 
                         <label class="view-source-button" for="mod-zutool-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">&quot;&quot;&quot;.. include:: ../README.md&quot;&quot;&quot;</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="sd">""".. include:: ../README.md"""</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
@@ -261,14 +261,14 @@ optional arguments:
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="k">try</span><span class="p">:</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">except</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">PackageNotFoundError</span><span class="p">:</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">__version__</span> <span class="o">=</span> <span class="s2">"0.0.0"</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="s2">&quot;get_otenki_asp&quot;</span><span class="p">,</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="s2">&quot;get_pain_status&quot;</span><span class="p">,</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="s2">&quot;get_weather_point&quot;</span><span class="p">,</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="s2">&quot;get_weather_status&quot;</span><span class="p">,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="s2">&quot;set_weather_point&quot;</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="s2">"get_otenki_asp"</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="s2">"get_pain_status"</span><span class="p">,</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="s2">"get_weather_point"</span><span class="p">,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="s2">"get_weather_status"</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="s2">"set_weather_point"</span><span class="p">,</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="p">)</span>
 </span></pre></div>
 
@@ -287,17 +287,17 @@ optional arguments:
     <a class="headerlink" href="#get_otenki_asp"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="get_otenki_asp-89"><a href="#get_otenki_asp-89"><span class="linenos"> 89</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_otenki_asp</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetOtenkiASPResponse</span><span class="p">:</span>
 </span><span id="get_otenki_asp-90"><a href="#get_otenki_asp-90"><span class="linenos"> 90</span></a>    <span class="n">params</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="get_otenki_asp-91"><a href="#get_otenki_asp-91"><span class="linenos"> 91</span></a>        <span class="s2">&quot;csid&quot;</span><span class="p">:</span> <span class="s2">&quot;mmcm&quot;</span><span class="p">,</span>
-</span><span id="get_otenki_asp-92"><a href="#get_otenki_asp-92"><span class="linenos"> 92</span></a>        <span class="s2">&quot;contents_id&quot;</span><span class="p">:</span> <span class="s2">&quot;day_tenki--day_pre--hight_temp--low_temp--day_wind_v--day_wind_d--zutu_level_day--low_humidity&quot;</span><span class="p">,</span>
-</span><span id="get_otenki_asp-93"><a href="#get_otenki_asp-93"><span class="linenos"> 93</span></a>        <span class="s2">&quot;duration_yohoushi&quot;</span><span class="p">:</span> <span class="s2">&quot;7&quot;</span><span class="p">,</span>
-</span><span id="get_otenki_asp-94"><a href="#get_otenki_asp-94"><span class="linenos"> 94</span></a>        <span class="s2">&quot;where&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;CHITEN_</span><span class="si">{</span><span class="n">city_code</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="get_otenki_asp-95"><a href="#get_otenki_asp-95"><span class="linenos"> 95</span></a>        <span class="s2">&quot;json&quot;</span><span class="p">:</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span>
+</span><span id="get_otenki_asp-91"><a href="#get_otenki_asp-91"><span class="linenos"> 91</span></a>        <span class="s2">"csid"</span><span class="p">:</span> <span class="s2">"mmcm"</span><span class="p">,</span>
+</span><span id="get_otenki_asp-92"><a href="#get_otenki_asp-92"><span class="linenos"> 92</span></a>        <span class="s2">"contents_id"</span><span class="p">:</span> <span class="s2">"day_tenki--day_pre--hight_temp--low_temp--day_wind_v--day_wind_d--zutu_level_day--low_humidity"</span><span class="p">,</span>
+</span><span id="get_otenki_asp-93"><a href="#get_otenki_asp-93"><span class="linenos"> 93</span></a>        <span class="s2">"duration_yohoushi"</span><span class="p">:</span> <span class="s2">"7"</span><span class="p">,</span>
+</span><span id="get_otenki_asp-94"><a href="#get_otenki_asp-94"><span class="linenos"> 94</span></a>        <span class="s2">"where"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"CHITEN_</span><span class="si">{</span><span class="n">city_code</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="get_otenki_asp-95"><a href="#get_otenki_asp-95"><span class="linenos"> 95</span></a>        <span class="s2">"json"</span><span class="p">:</span> <span class="s2">"on"</span><span class="p">,</span>
 </span><span id="get_otenki_asp-96"><a href="#get_otenki_asp-96"><span class="linenos"> 96</span></a>    <span class="p">}</span>
 </span><span id="get_otenki_asp-97"><a href="#get_otenki_asp-97"><span class="linenos"> 97</span></a>    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-</span><span id="get_otenki_asp-98"><a href="#get_otenki_asp-98"><span class="linenos"> 98</span></a>        <span class="s2">&quot;https://ap.otenki.com/OtenkiASP/asp/getElements&quot;</span><span class="p">,</span>
+</span><span id="get_otenki_asp-98"><a href="#get_otenki_asp-98"><span class="linenos"> 98</span></a>        <span class="s2">"https://ap.otenki.com/OtenkiASP/asp/getElements"</span><span class="p">,</span>
 </span><span id="get_otenki_asp-99"><a href="#get_otenki_asp-99"><span class="linenos"> 99</span></a>        <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
 </span><span id="get_otenki_asp-100"><a href="#get_otenki_asp-100"><span class="linenos">100</span></a>        <span class="n">timeout</span><span class="o">=</span><span class="n">TIMEOUT</span><span class="p">,</span>
-</span><span id="get_otenki_asp-101"><a href="#get_otenki_asp-101"><span class="linenos">101</span></a>        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="n">UA</span><span class="p">},</span>
+</span><span id="get_otenki_asp-101"><a href="#get_otenki_asp-101"><span class="linenos">101</span></a>        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="n">UA</span><span class="p">},</span>
 </span><span id="get_otenki_asp-102"><a href="#get_otenki_asp-102"><span class="linenos">102</span></a>    <span class="p">)</span>
 </span><span id="get_otenki_asp-103"><a href="#get_otenki_asp-103"><span class="linenos">103</span></a>    <span class="k">try</span><span class="p">:</span>
 </span><span id="get_otenki_asp-104"><a href="#get_otenki_asp-104"><span class="linenos">104</span></a>        <span class="n">raw_res</span> <span class="o">=</span> <span class="n">_GetOtenkiASPRawResponse</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
@@ -326,7 +326,7 @@ optional arguments:
 </span><span id="get_pain_status-71"><a href="#get_pain_status-71"><span class="linenos">71</span></a>    <span class="n">set_weather_point</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="get_pain_status-72"><a href="#get_pain_status-72"><span class="linenos">72</span></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetPainStatusResponse</span><span class="p">:</span>
 </span><span id="get_pain_status-73"><a href="#get_pain_status-73"><span class="linenos">73</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span>
-</span><span id="get_pain_status-74"><a href="#get_pain_status-74"><span class="linenos">74</span></a>        <span class="s2">&quot;/getpainstatus&quot;</span><span class="p">,</span>
+</span><span id="get_pain_status-74"><a href="#get_pain_status-74"><span class="linenos">74</span></a>        <span class="s2">"/getpainstatus"</span><span class="p">,</span>
 </span><span id="get_pain_status-75"><a href="#get_pain_status-75"><span class="linenos">75</span></a>        <span class="n">area_code</span><span class="p">,</span>
 </span><span id="get_pain_status-76"><a href="#get_pain_status-76"><span class="linenos">76</span></a>        <span class="n">GetPainStatusResponse</span><span class="p">,</span>
 </span><span id="get_pain_status-77"><a href="#get_pain_status-77"><span class="linenos">77</span></a>        <span class="n">set_weather_point</span><span class="o">=</span><span class="n">set_weather_point</span><span class="p">,</span>
@@ -349,7 +349,7 @@ optional arguments:
     </div>
     <a class="headerlink" href="#get_weather_point"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_point-81"><a href="#get_weather_point-81"><span class="linenos">81</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_weather_point</span><span class="p">(</span><span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherPointResponse</span><span class="p">:</span>
-</span><span id="get_weather_point-82"><a href="#get_weather_point-82"><span class="linenos">82</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">&quot;/getweatherpoint&quot;</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">GetWeatherPointResponse</span><span class="p">)</span>
+</span><span id="get_weather_point-82"><a href="#get_weather_point-82"><span class="linenos">82</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">"/getweatherpoint"</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">GetWeatherPointResponse</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -368,7 +368,7 @@ optional arguments:
     </div>
     <a class="headerlink" href="#get_weather_status"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="get_weather_status-85"><a href="#get_weather_status-85"><span class="linenos">85</span></a><span class="k">def</span><span class="w"> </span><span class="nf">get_weather_status</span><span class="p">(</span><span class="n">city_code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GetWeatherStatusResponse</span><span class="p">:</span>
-</span><span id="get_weather_status-86"><a href="#get_weather_status-86"><span class="linenos">86</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">&quot;/getweatherstatus&quot;</span><span class="p">,</span> <span class="n">city_code</span><span class="p">,</span> <span class="n">GetWeatherStatusResponse</span><span class="p">)</span>
+</span><span id="get_weather_status-86"><a href="#get_weather_status-86"><span class="linenos">86</span></a>    <span class="k">return</span> <span class="n">__get</span><span class="p">(</span><span class="s2">"/getweatherstatus"</span><span class="p">,</span> <span class="n">city_code</span><span class="p">,</span> <span class="n">GetWeatherStatusResponse</span><span class="p">)</span>
 </span></pre></div>
 
 
