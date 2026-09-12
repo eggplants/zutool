@@ -21,7 +21,7 @@ class _RawHead(BaseModel):
         return datetime.strptime(v, "%Y-%m-%d %H").replace(tzinfo=_JTC)
 
 
-_Property = tuple[datetime, Union[WeatherEnum, float, None]]
+_Property = tuple[datetime, WeatherEnum | float | None]
 
 
 class _RawProperty(BaseModel):
@@ -68,7 +68,7 @@ class GetOtenkiASPResponse(BaseModel):
     def __init__(self, raw_res: _GetOtenkiASPRawResponse) -> None:
         elements: list[_Element] = []
         for i, (content_id, title) in enumerate(
-            zip(raw_res.head.contents_id.split("--"), raw_res.head.title.split("--")),
+            zip(raw_res.head.contents_id.split("--"), raw_res.head.title.split("--"), strict=False),
         ):
             records = {record.property[0]: record.property[1] for record in raw_res.body.location.element[i].record}
             elements.append(

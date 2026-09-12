@@ -54,12 +54,12 @@ def func_pain_status(ns: argparse.Namespace) -> None:
     sickness_emojies = ("😃", "😐", "😞", "🤯")
 
     data: list[str] = []
-    for emoji, sickness_key in zip(sickness_emojies, sickness_dic):
+    for emoji, sickness_key in zip(sickness_emojies, sickness_dic, strict=True):
         sickness_val = getattr(res, sickness_key)
         data.append(f"{emoji * int(sickness_val / 2)} {sickness_val}%")
     table.add_column("\n".join(data))
 
-    emoji_label_dic = zip(sickness_emojies, sickness_dic.values())
+    emoji_label_dic = zip(sickness_emojies, sickness_dic.values(), strict=True)
     table.add_row(
         "[" + ", ".join([f"{emoji}･･･{key}" for emoji, key in emoji_label_dic]) + "]",
     )
@@ -207,7 +207,7 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     weather_point_parser = subparsers.add_parser(
         "weather_point",
         aliases=["wp"],
-        formatter_class=lambda prog: __get_formatter_class(prog),
+        formatter_class=__get_formatter_class,
         help="search weather point",
     )
     weather_point_parser.add_argument(
@@ -226,7 +226,7 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     weather_status_parser = subparsers.add_parser(
         "weather_status",
         aliases=["ws"],
-        formatter_class=lambda prog: __get_formatter_class(prog),
+        formatter_class=__get_formatter_class,
         help="get pain status by city",
     )
     weather_status_parser.add_argument(
@@ -249,7 +249,7 @@ def parse(test_args: list[str] | None = None) -> argparse.Namespace:
     otenki_asp_parser = subparsers.add_parser(
         "otenki_asp",
         aliases=["oa"],
-        formatter_class=lambda prog: __get_formatter_class(prog),
+        formatter_class=__get_formatter_class,
         help="get weather infomations",
     )
     otenki_asp_parser.add_argument(
