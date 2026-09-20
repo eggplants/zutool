@@ -47,7 +47,7 @@ dependencies = [
 urls.Documentation = "https://egpl.dev/zutool/"
 urls.Issues = "https://github.com/eggplants/zutool/issues"
 urls.Repository = "https://github.com/eggplants/zutool"
-scripts.zutool = "zutool.main:main"
+scripts.zutool = "zutool.cli:main"
 
 [dependency-groups]
 dev = [
@@ -87,11 +87,11 @@ lint.ignore = [
   "CPY001", # Missing copyright notice (this project does not use file headers)
   "D",
 ]
-lint.per-file-ignores."main.py" = [
-  "T201", # `print` found
-]
 lint.per-file-ignores."tests/test_*.py" = [
   "S101", # Use of assert detected
+]
+lint.per-file-ignores."zutool/cli.py" = [
+  "T201", # `print` found
 ]
 lint.per-file-ignores."zutool/models/*.py" = [
   "N805",    # First argument of a method should be named `self`

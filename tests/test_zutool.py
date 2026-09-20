@@ -6,7 +6,7 @@ from zutool import (
     get_weather_point,
     get_weather_status,
 )
-from zutool.main import main
+from zutool.cli import main
 
 HTTP_NOT_FOUND = 404
 ZUTOOL_API_NOT_FOUND = 4004
